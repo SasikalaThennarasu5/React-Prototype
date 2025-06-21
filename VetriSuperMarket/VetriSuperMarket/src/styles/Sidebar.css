@@ -1,0 +1,23 @@
+.sidebar-custom {
+  background-color: #e0f7fa; /* Light blue */
+  width: 220px;
+  border-right: 1px solid #ccc;
+}
+
+.nav-link-custom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+
+
+/* Active link */
+.nav-link-custom.active {
+  color: #ff8000; /* Orange when active */
+  font-weight: 600;
+}

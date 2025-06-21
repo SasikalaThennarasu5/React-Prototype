@@ -1,0 +1,28 @@
+input::placeholder {
+  font-size: 0.9rem;
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+/* Home.css - Responsive layout and item styling */
+
+@media (max-width: 768px) {
+  .row > div {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
