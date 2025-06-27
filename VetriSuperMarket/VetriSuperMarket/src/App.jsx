@@ -8,7 +8,7 @@ import OrderComplete from './pages/OrderComplete';
 import Invoice from './pages/Invoice';
 import ThankYou from './pages/ThankYou';
 import { CartProvider } from './context/CartContext';
-import Sidebar from './components/Sidebar';
+import Sidebar1 from './components/Sidebar1';
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
       <Router>
         <div className="d-flex">
           <div className="d-none d-md-block">
-            <Sidebar />
+            <Sidebar1 />
           </div>
           <div className="flex-grow-1 p-3">
             <Routes>
