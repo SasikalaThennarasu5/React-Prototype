@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
+import Sidebar1 from "./components/Sidebar1";
 import Login from "./components/Login";
 import Overview from "./components/Overview";
 import Designing from "./components/Designing";
@@ -33,7 +33,7 @@ export default function App() {
 
   return (
     <Router>
-      <Sidebar username={username} />
+      <Sidebar1 username={username} />
       <div className="main-content p-3" style={{ minHeight: "100vh", backgroundColor: "#f8f9fa" }}>
         <Routes>
           <Route path="/" element={<Navigate to="/overview" />} />
