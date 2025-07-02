@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { HouseFill, Grid3x3GapFill } from 'react-bootstrap-icons';
 import '../styles/Sidebar.css';
 
-const Sidebar = () => {
+const Sidebar1 = () => {
   return (
     <div className="sidebar-custom p-3 d-flex flex-column min-vh-100">
       <div className="text-center mb-4">
@@ -32,4 +32,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default Sidebar1;

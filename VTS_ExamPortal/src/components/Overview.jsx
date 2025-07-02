@@ -1,0 +1,147 @@
+import React, { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./Overview.css";
+
+// Importing images
+import PriyaImg from "../assets/images/img 1.png";
+import RithikaImg from "../assets/images/img 2.png";
+import ReshmaImg from "../assets/images/img 3.png";
+
+export default function Overview({ username }) {
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentDateTime(new Date());
+    }, 60000); // Update every 1 minute
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const formattedDate = currentDateTime.toLocaleDateString("en-GB", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
+  const formattedTime = currentDateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+  const trainers = [
+    { name: "Priya", role: "UI/UX Designer", image: PriyaImg },
+    { name: "Rithika", role: "Frontend Developer", image: RithikaImg },
+    { name: "Reshma", role: "Backend Developer", image: ReshmaImg },
+  ];
+
+  return (
+    <div className="overview-page p-4" style={{ fontFamily: "Urbanist, sans-serif" }}>
+      {/* Header */}
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h5 className="fw-bold">Good Morning, {username}!</h5>
+          <p className="text-muted mb-0">{formattedDate} | {formattedTime}</p>
+        </div>
+
+        {/* Search and Icons */}
+        <div className="d-flex align-items-center">
+          <div className="input-group me-3">
+            <input type="text" className="form-control" placeholder="Search" />
+            <button className="btn" style={{ backgroundColor: "#d6f26b" }}>🔍</button>
+          </div>
+          <div className="position-relative me-3">
+            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              1
+            </span>
+            🔔
+          </div>
+          <img
+            src="https://via.placeholder.com/40"
+            alt="User"
+            className="rounded-circle"
+            style={{ width: "40px", height: "40px", objectFit: "cover" }}
+          />
+        </div>
+      </div>
+
+      {/* Stats Section */}
+      <div className="row mb-4">
+        <div className="col-md-4 mb-3">
+          <div className="p-3 rounded shadow" style={{ backgroundColor: "#ffeaa7" }}>
+            <h3 className="fw-bold">500</h3>
+            <p>Total Trainees 👥</p>
+          </div>
+        </div>
+        <div className="col-md-4 mb-3">
+          <div className="p-3 rounded shadow" style={{ backgroundColor: "#c8f7c5" }}>
+            <h3 className="fw-bold">15</h3>
+            <p>Active Courses 📅</p>
+          </div>
+        </div>
+        <div className="col-md-4 mb-3">
+          <div className="p-3 rounded shadow" style={{ backgroundColor: "#f5a3d1" }}>
+            <h3 className="fw-bold">12</h3>
+            <p>Upcoming Exams 📄</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Active Trainers & Upcoming Exams */}
+      <div className="row mb-4">
+        {/* Active Trainers */}
+        <div className="col-md-6 mb-3">
+          <div className="p-3 rounded shadow" style={{ backgroundColor: "#eafcaa" }}>
+            <div className="d-flex justify-content-between align-items-center mb-2">
+              <h6 className="fw-bold">Active Trainers</h6>
+              <button className="btn btn-dark btn-sm">+ Add New</button>
+            </div>
+            {trainers.map((trainer, index) => (
+              <div key={index} className="d-flex justify-content-between align-items-center mb-2 p-2 bg-white rounded shadow-sm">
+                <div className="d-flex align-items-center">
+                  <img
+                    src={trainer.image}
+                    alt={trainer.name}
+                    className="rounded-circle me-2"
+                    style={{ width: "40px", height: "40px", objectFit: "cover" }}
+                  />
+                  <div>
+                    <div className="fw-semibold">{trainer.name}</div>
+                    <small className="text-muted">{trainer.role}</small>
+                  </div>
+                </div>
+                <button className="btn btn-outline-dark btn-sm">15 Trainees</button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Upcoming Exams */}
+        <div className="col-md-6 mb-3">
+          <div className="p-3 rounded shadow" style={{ backgroundColor: "#eafcaa" }}>
+            <div className="d-flex justify-content-between align-items-center mb-2">
+              <h6 className="fw-bold">Upcoming Exams</h6>
+              <button className="btn btn-dark btn-sm">Upload New Exam</button>
+            </div>
+            {[
+              { title: "Figma Technical Questions", date: "May 15, 2025", time: "2:30 PM", duration: "30 Minutes" },
+              { title: "Figma Practical Questions", date: "May 16, 2025", time: "4:00 PM", duration: "1 Day" },
+            ].map((exam, idx) => (
+              <div key={idx} className="bg-white p-2 mb-2 rounded">
+                <div className="fw-semibold">{exam.title}</div>
+                <small className="text-muted">Duration: {exam.duration}</small>
+                <div className="fw-bold mt-1">{exam.date} - {exam.time}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Upload Question Paper */}
+      <div className="border border-dashed rounded p-4 text-center" style={{ borderColor: "#ccc", borderStyle: "dashed" }}>
+        <div>📤</div>
+        <p>Drag and drop your files here or</p>
+        <button className="btn btn-dark">Browse Files</button>
+        <small className="text-muted d-block mt-2">Supported formats: PDF, DOC, DOCX (Max: 10MB)</small>
+      </div>
+    </div>
+  );
+}
