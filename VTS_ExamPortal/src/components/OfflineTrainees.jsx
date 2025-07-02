@@ -2,12 +2,12 @@ import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-import ArjunImg from "../assets/images/img 1.png";
-import MeeraImg from "../assets/images/img 2.png";
-import VarunImg from "../assets/images/img 3.png";
-import LakshmiImg from "../assets/images/img 3.png";
-import VikramImg from "../assets/images/img 1.png";
-import AnjaliImg from "../assets/images/img 2.png";
+import ArjunImg from "../assets/images/img1.png";
+import MeeraImg from "../assets/images/img2.png";
+import VarunImg from "../assets/images/img3.png";
+import LakshmiImg from "../assets/images/img5.png";
+import VikramImg from "../assets/images/img3.png";
+import AnjaliImg from "../assets/images/img2.png";
 
 export default function OfflineTrainees() {
   const navigate = useNavigate();

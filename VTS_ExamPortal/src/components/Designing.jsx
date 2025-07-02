@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import PriyaImg from "../assets/images/img 1.png";
-import RithikaImg from "../assets/images/img 2.png";
-import ReshmaImg from "../assets/images/img 3.png";
+import PriyaImg from "../assets/images/img1.png";
+import RithikaImg from "../assets/images/img2.png";
+import ReshmaImg from "../assets/images/img3.png";
 
 export default function Designing({ username }) {
   const [showModal, setShowModal] = useState(false);

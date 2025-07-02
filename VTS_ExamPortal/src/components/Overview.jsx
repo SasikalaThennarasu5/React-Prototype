@@ -3,9 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Overview.css";
 
 // Importing images
-import PriyaImg from "../assets/images/img 1.png";
-import RithikaImg from "../assets/images/img 2.png";
-import ReshmaImg from "../assets/images/img 3.png";
+import PriyaImg from "../assets/images/img1.png";
+import RithikaImg from "../assets/images/img2.png";
+import ReshmaImg from "../assets/images/img3.png";
 
 export default function Overview({ username }) {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());

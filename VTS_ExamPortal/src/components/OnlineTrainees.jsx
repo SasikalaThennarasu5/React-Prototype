@@ -2,12 +2,12 @@ import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-import KavyaImg from "../assets/images/img 1.png";
-import ReshmaImg from "../assets/images/img 2.png";
-import PriyaImg from "../assets/images/img 3.png";
-import RithikaImg from "../assets/images/img 5.png";
-import SathyaImg from "../assets/images/img 3.png";
-import DivyaImg from "../assets/images/img 1.png";
+import KavyaImg from "../assets/images/img1.png";
+import ReshmaImg from "../assets/images/img2.png";
+import PriyaImg from "../assets/images/img3.png";
+import RithikaImg from "../assets/images/img5.png";
+import SathyaImg from "../assets/images/img3.png";
+import DivyaImg from "../assets/images/img1.png";
 
 export default function OnlineTrainees() {
   const navigate = useNavigate();
