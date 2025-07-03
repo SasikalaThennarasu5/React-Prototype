@@ -21,7 +21,7 @@ export default function Sidebar() {
           <Nav className="flex-column">
             <Nav.Link onClick={() => handleNavigate("/overview")} className="nav-item text-white">📊 Overview</Nav.Link>
             <Nav.Link onClick={() => handleNavigate("/designing")} className="nav-item text-white">✏️ Designing</Nav.Link>
-            <Nav.Link onClick={() => handleNavigate("/development")} className="nav-item text-white">💻 Development</Nav.Link>
+            <Nav.Link onClick={() => handleNavigate("/welcome")} className="nav-item text-white">📤 Development</Nav.Link>
             <Nav.Link onClick={() => handleNavigate("/upcoming-exams")} className="nav-item text-white">📝 Exam</Nav.Link>
             <Nav.Link onClick={() => handleNavigate("/result")} className="nav-item text-white">🔍 Result</Nav.Link>
           </Nav>
@@ -44,7 +44,7 @@ export default function Sidebar() {
           <Nav className="flex-column">
             <Nav.Link onClick={() => handleNavigate("/overview")} className="text-white">📊 Overview</Nav.Link>
             <Nav.Link onClick={() => handleNavigate("/designing")} className="text-white">✏️ Designing</Nav.Link>
-            <Nav.Link onClick={() => handleNavigate("/development")} className="text-white">💻 Development</Nav.Link>
+            <Nav.Link onClick={() => handleNavigate("/welcome")} className="text-white">📤 Development</Nav.Link>
             <Nav.Link onClick={() => handleNavigate("/upcoming-exams")} className="text-white">📝 Exam</Nav.Link>
             <Nav.Link onClick={() => handleNavigate("/result")} className="text-white">🔍 Result</Nav.Link>
           </Nav>

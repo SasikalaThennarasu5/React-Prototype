@@ -1,9 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  addDays,
+  format,
+  addMonths,
+  subMonths,
+  isSameDay,
+  isSameMonth,
+  parse
+} from "date-fns";
 
 export default function UpcomingExams({ username }) {
   const navigate = useNavigate();
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [calendarDate, setCalendarDate] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentDate(new Date()), 60000);
@@ -30,12 +44,54 @@ export default function UpcomingExams({ username }) {
   };
 
   const exams = [
-    { title: "Figma Technical Questions", date: "May 15, 2025", time: "2:30 PM", duration: "30 Minutes" },
-    { title: "Figma Practical Questions", date: "May 16, 2025", time: "4:00 PM", duration: "1 Day" },
+    { title: "Figma Technical Questions", date: "2025-07-15", time: "2:30 PM", duration: "30 Minutes" },
+    { title: "Figma Practical Questions", date: "2025-07-16", time: "4:00 PM", duration: "1 Day" },
   ];
 
   const handleExamClick = () => {
     navigate("/figma-technical-questions");
+  };
+
+  const renderCalendarCells = () => {
+    const monthStart = startOfMonth(calendarDate);
+    const monthEnd = endOfMonth(monthStart);
+    const startDate = startOfWeek(monthStart);
+    const endDate = endOfWeek(monthEnd);
+
+    const dateFormat = "d";
+    const rows = [];
+    let days = [];
+    let day = startDate;
+    let formattedDate = "";
+
+    while (day <= endDate) {
+      for (let i = 0; i < 7; i++) {
+        formattedDate = format(day, dateFormat);
+        const cloneDay = day;
+        const isExamDate = exams.some(
+          (exam) => isSameDay(parse(exam.date, "yyyy-MM-dd", new Date()), cloneDay)
+        );
+        days.push(
+          <div
+            className={`text-center small py-1 ${!isSameMonth(day, monthStart) ? "text-muted" : ""} ${
+              isExamDate ? "bg-warning text-dark rounded-circle" : ""
+            }`}
+            key={day}
+            style={{ width: "14%" }}
+          >
+            {formattedDate}
+          </div>
+        );
+        day = addDays(day, 1);
+      }
+      rows.push(
+        <div className="d-flex w-100" key={day}>
+          {days}
+        </div>
+      );
+      days = [];
+    }
+    return <div>{rows}</div>;
   };
 
   return (
@@ -60,7 +116,7 @@ export default function UpcomingExams({ username }) {
               >
                 <strong>{exam.title}</strong>
                 <div className="small text-muted">Duration: {exam.duration}</div>
-                <div className="small fw-bold">{exam.date} - {exam.time}</div>
+                <div className="small fw-bold">{format(parse(exam.date, "yyyy-MM-dd", new Date()), "MMM d, yyyy")} - {exam.time}</div>
               </div>
             ))}
           </div>
@@ -71,8 +127,12 @@ export default function UpcomingExams({ username }) {
           <div className="p-3" style={{ backgroundColor: "#e6f985", borderRadius: "8px" }}>
             <h6>Exam Calendar</h6>
             <div className="bg-dark text-white text-center p-2 rounded">
-              <p className="mb-0">{currentDate.toLocaleString("default", { month: "long" })} {currentDate.getFullYear()}</p>
-              <div className="d-flex justify-content-around small mt-2">
+              <div className="d-flex justify-content-between align-items-center mb-2">
+                <button className="btn btn-sm btn-light" onClick={() => setCalendarDate(subMonths(calendarDate, 1))}>◀</button>
+                <strong>{format(calendarDate, "MMMM yyyy")}</strong>
+                <button className="btn btn-sm btn-light" onClick={() => setCalendarDate(addMonths(calendarDate, 1))}>▶</button>
+              </div>
+              <div className="d-flex justify-content-around small">
                 <div>Sun</div>
                 <div>Mon</div>
                 <div>Tue</div>
@@ -81,17 +141,7 @@ export default function UpcomingExams({ username }) {
                 <div>Fri</div>
                 <div>Sat</div>
               </div>
-              <div className="d-flex flex-wrap mt-2 text-center">
-                {Array.from({ length: 31 }, (_, i) => (
-                  <div
-                    key={i}
-                    style={{ width: "14%", padding: "2px", fontSize: "12px" }}
-                    className={`${i + 1 === 15 ? "bg-warning text-dark rounded-circle" : ""}`}
-                  >
-                    {i + 1}
-                  </div>
-                ))}
-              </div>
+              {renderCalendarCells()}
             </div>
           </div>
         </div>
