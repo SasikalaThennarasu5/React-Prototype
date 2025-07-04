@@ -4,6 +4,7 @@ import Sidebar1 from "./components/Sidebar1";
 import Login from "./components/Login";
 import Overview from "./components/Overview";
 import Designing from "./components/Designing";
+import Development from "./components/Development";
 import OnlineTrainees from "./components/OnlineTrainees";
 import OfflineTrainees from "./components/OfflineTrainees";
 import Welcome from "./components/Welcome";
@@ -43,6 +44,7 @@ export default function App() {
 
           {/* Designing */}
           <Route path="/designing" element={<Designing username={username} />} />
+          <Route path="/Development" element={<Development />} />
           <Route path="/online-trainees" element={<OnlineTrainees username={username} />} />
           <Route path="/offline-trainees" element={<OfflineTrainees username={username} />} />
 
