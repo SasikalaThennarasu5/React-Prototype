@@ -13,9 +13,13 @@ const OurServices = () => {
         <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold tracking-wide text-black flex justify-center items-center gap-2">
           OUR SERVICES <span className="text-blue-600 text-2xl">⚡</span>
         </h3>
-        <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-blue-700 mt-2">
+        <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-blue-700 my-4">
           Expert Services for a Safer, Smarter World
         </h2>
+        <p>At ZAHRIX, we offer a comprehensive range of electrical services designed to meet the needs of homes and businesses. Our team of experts is dedicated to providing safe, efficient, and reliable electrical solutions.</p>
+        <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold tracking-wide text-black flex justify-center items-center gap-2 mt-4">
+         Services We Offer<span className="text-blue-600 text-2xl">⚡</span>
+        </h3>
       </div>
 
       {/* Row 1: Image + CCTV */}
@@ -39,12 +43,10 @@ const OurServices = () => {
           <div>
             <h3 className="text-2xl lg:text-3xl font-semibold text-blue-700 mb-3 flex items-center gap-3">
               <img src={cctvIcon} alt="CCTV Icon" className="w-20 h-20" />
-              CCTV Services
+              BMS Installation
             </h3>
             <p className="text-gray-600 text-base lg:text-lg xl:text-xl px-12">
-             Advanced CCTV systems for enhanced security and surveillance,
-              providing peace of mind and protection.<span className="text-blue-600 text-2xl">⚡</span>
-            </p>
+            Expert BMS installation services to optimize building performance and efficiency. Our team designs and installs customized BMS systems for new and existing buildings.</p>
           </div>
           <div className="mt-4 flex justify-end">
             <button className="text-blue-600 font-semibold flex items-center gap-1 hover:underline">
@@ -61,11 +63,10 @@ const OurServices = () => {
           <div>
             <h3 className="text-2xl lg:text-3xl font-semibold text-blue-700 mb-3 flex items-center gap-3">
               <img src={bmsIcon} alt="BMS Icon" className="w-20 h-20" />
-              BMS Services
+             BMS Upgrades
             </h3>
             <p className="text-gray-600 text-base lg:text-lg xl:text-xl">
-                Intelligent Building Management Systems for optimized energy
-              efficiency, security, and comfort.<span className="text-blue-600 text-2xl">⚡</span>
+                BMS upgrades and retrofits to improve system functionality, efficiency, and reliability. Our team enhances existing BMS systems to meet evolving building needs..<span className="text-blue-600 text-2xl">⚡</span>
             </p>
           </div>
           <div className="mt-4 flex justify-end">
@@ -80,12 +81,10 @@ const OurServices = () => {
           <div>
             <h3 className="text-2xl lg:text-3xl font-semibold text-blue-700 mb-3 flex items-center gap-3">
               <img src={electricalIcon} alt="Electrical Icon" className="w-20 h-20" />
-              Electrical Services
+            BMS Maintenance
             </h3>
             <p className="text-gray-600 text-base lg:text-lg xl:text-xl">
-                Expert electrical solutions for homes and businesses, ensuring
-              safety, efficiency, and reliability.<span className="text-blue-600 text-2xl">⚡</span>
-            </p>
+               Regular BMS maintenance to ensure system uptime and optimal performance. Our technicians perform routine checks, repairs, and upgrades to keep your BMS system running smoothly. </p>
           </div>
           <div className="mt-4 flex justify-end">
             <button className="text-blue-600 font-semibold flex items-center gap-1 hover:underline">

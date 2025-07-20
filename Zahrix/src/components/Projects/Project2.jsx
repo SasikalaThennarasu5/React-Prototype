@@ -2,6 +2,7 @@ import React from 'react';
 import img1 from '../../assets/images/jk.png';
 import img2 from '../../assets/images/j.png';
 import img3 from '../../assets/images/k.png';
+import arrowIcon from "../../assets/images/material-symbols_drag-click-rounded.png"; 
 
 const Project2 = () => {
   return (
@@ -30,19 +31,20 @@ const Project2 = () => {
           {/* Centered Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent text-white flex flex-col items-center justify-center text-center px-4">
             <h3 className="text-xl md:text-2xl font-bold mb-2">
-              Smart BMS Automation
+             LED Lighting Retrofit
             </h3>
             <p className="text-base md:text-lg leading-relaxed max-w-md">
-              Integrating advanced BMS systems to streamline building operations,
-              improve efficiency, and reduce operational costs.
+              Illuminating spaces with energy-efficient LED lighting solutions, reducing energy consumption and maintenance costs.
             </p>
           </div>
 
           {/* Bootstrap Icon at Bottom Center */}
           <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2">
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-[#4A66A0] rounded-full flex items-center justify-center shadow-lg">
-              <i className="bi bi-arrow-up text-white text-xl md:text-2xl"></i>
-            </div>
+            <img
+                                 src={arrowIcon}
+                                 alt="arrow icon"
+                                 className="w-12 h-12 bg-[#4A66A0] rounded-full p-2 shadow-lg"
+                               />
           </div>
         </div>
 

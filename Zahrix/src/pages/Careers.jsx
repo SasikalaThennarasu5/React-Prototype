@@ -1,6 +1,6 @@
 import React from 'react';
 import careerbg from '../assets/images/Screenshot 2025-06-12 123446.png';
-import CareerForm from '../components/CareerForm'; // Adjust path if needed
+import CareerForm from '../components/CareerForm'; 
 
 const Careers = () => {
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import OurServices from '../components/BMS/OurServices';
+import OurServices from '../components/CCTV/OurServices';
 import cctvhero from '../assets/images/Screenshot 2025-06-12 151428.png'; 
 import { Link } from "react-router-dom";
 import circle from "../assets/images/material-symbols_drag-click-rounded.png";

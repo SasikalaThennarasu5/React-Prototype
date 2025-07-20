@@ -58,10 +58,10 @@ const CareerForm = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-5 bg-white py-10">
-      <h1 className="text-4xl font-extrabold text-gray-800 text-center">Join Our Team</h1>
+      <h1 className="text-4xl font-extrabold text-gray-800 text-center">WE ARE HIRING !</h1>
       <p className="text-gray-600 text-center mt-2 mb-10 text-lg max-w-3xl mx-auto">
-        We value your interest in working with Zahrix Electromechanical Services. While there are currently no open positions, you may still submit your details below.
-      </p>
+        We appreciate your interest in joining Zahrix Electromechanical Services.
+        <br /> Currently, we do not have any open positions.</p>
 
       <h2 className="text-2xl font-bold mb-6 border-b pb-2">Application Form</h2>
 
@@ -115,14 +115,7 @@ const CareerForm = () => {
               <MdSend className="text-xl" />
               Submit
             </button>
-            <button
-              type="button"
-              onClick={handleReset}
-              className="flex items-center gap-2 bg-gray-400 hover:bg-gray-500 text-white px-6 py-2.5 rounded-md text-base"
-            >
-              <MdCancel className="text-xl" />
-              Reset
-            </button>
+           
           </div>
         </div>
 
@@ -171,7 +164,7 @@ const CareerForm = () => {
           </div>
 
           <p className="text-green-700 font-medium text-base mt-4">
-            Thank you for your interest in working with us!
+           Thank You For Considering Zahrix As Your Future Workplace!
           </p>
         </div>
       </form>

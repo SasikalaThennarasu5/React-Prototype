@@ -27,7 +27,6 @@ const ServiceCards = () => {
   <div className="bg-white rounded-2xl shadow-md overflow-visible relative flex flex-col h-full mt-20">
   <img src={card2} alt="Project 2" className="w-full h-100 object-cover" />
 
-  {/* Full overlay with text at the bottom */}
   <div className="absolute inset-0 bg-black bg-opacity-50 text-white px-4 py-6 flex flex-col justify-end text-center">
     <div>
       <h4 className="text-xl font-semibold mb-4">LED Lighting Retrofit</h4>
