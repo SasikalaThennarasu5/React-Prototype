@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import hindu from "../assets/images/hindu1.png";
+import hindu1 from "../assets/images/hindu1.png";
 import christian from "../assets/images/christian2.png";
 import muslim from "../assets/images/muslim2.png";
 import sikh from "../assets/images/sikh.png";
@@ -15,7 +15,7 @@ import elegantedit from "../assets/images/elegant.png";
 import nepali from "../assets/images/nepali.png";
 
 const weddingCards = [
-  { title: "Hindu Wedding Cards", image: hindu, route: "/HinduWeddingCards" },
+  { title: "Hindu Wedding Cards", image: hindu1, route: "/HinduWeddingCards" },
   { title: "Christian Wedding Cards", image: christian, route: "/HinduWeddingCards" },
   { title: "Muslim Wedding Cards", image: muslim, route: "/HinduWeddingCards" },
   { title: "Sikh Wedding Cards", image: sikh, route: "/HinduWeddingCards" },
