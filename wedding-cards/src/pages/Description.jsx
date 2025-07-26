@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
-import thumb1 from '../assets/images/thumb1.jpg';
-import thumb2 from '../assets/images/thumb2.jpg';
+import thumb1 from '../assets/images/card1.png';
+import thumb2 from '../assets/images/card2.png';
 import variant from '../assets/images/variant.jpg';
 
 const Description = () => {
