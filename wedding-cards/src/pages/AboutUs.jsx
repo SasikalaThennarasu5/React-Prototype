@@ -1,5 +1,5 @@
 import React from 'react';
-import wedding from '../assets/images/wedding.png';
+/*import wedding from '../assets/images/wedding.png';*/
 import preWedding from '../assets/images/prewedding.png';
 import tajmahal from '../assets/images/tajmahal.png';
 
@@ -19,7 +19,7 @@ const AboutUs = () => {
         </div>
         <div className="md:col-span-6 flex justify-center">
           <img
-            src={wedding}
+            src= "/wedding.png"
             alt="Wedding"
             className="w-60 h-auto rounded-md shadow-md"
           />
