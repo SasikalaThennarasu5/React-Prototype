@@ -1,7 +1,7 @@
 import React from 'react';
-import weddingImage from '../assets/images/wedding.png';
-import preWeddingImage from '../assets/images/prewedding.png';
-import tajImage from '../assets/images/tajmahal.png';
+import wedding from '../assets/images/wedding.png';
+import preWedding from '../assets/images/prewedding.png';
+import tajmahal from '../assets/images/tajmahal.png';
 
 const AboutUs = () => {
   return (
@@ -19,7 +19,7 @@ const AboutUs = () => {
         </div>
         <div className="md:col-span-6 flex justify-center">
           <img
-            src={weddingImage}
+            src={wedding}
             alt="Wedding"
             className="w-60 h-auto rounded-md shadow-md"
           />
@@ -30,7 +30,7 @@ const AboutUs = () => {
       <div className="grid grid-cols-1 md:grid-cols-12 items-center gap-10 mb-16">
         <div className="md:col-span-6 flex justify-center">
           <img
-            src={preWeddingImage}
+            src={preWedding}
             alt="Pre-Wedding"
             className="w-60 h-auto rounded-md shadow-md"
           />
@@ -63,7 +63,7 @@ const AboutUs = () => {
         </div>
         <div className="md:col-span-6 flex justify-center">
           <img
-            src={tajImage}
+            src={tajmahal}
             alt="Taj Mahal"
             className="w-60 h-auto rounded-md shadow-md"
           />
