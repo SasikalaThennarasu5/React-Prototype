@@ -2,30 +2,30 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import hindu1 from "../assets/images/hindu1.png";
-import christian from "../assets/images/christian2.png";
-import muslim from "../assets/images/muslim2.png";
+import christian2 from "../assets/images/christian2.png";
+import muslim2 from "../assets/images/muslim2.png";
 import sikh from "../assets/images/sikh.png";
-import interfaith from "../assets/images/interfaith1.png";
+import interfaith1 from "../assets/images/interfaith1.png";
 import exclusive from "../assets/images/exclusive.png";
 import traditional from "../assets/images/traditional.png";
 import all from "../assets/images/all.png";
 import newstyle from "../assets/images/newstyle.png";
 import envelope from "../assets/images/envelope.png";
-import elegantedit from "../assets/images/elegant.png";
+import elegant from "../assets/images/elegant.png";
 import nepali from "../assets/images/nepali.png";
 
 const weddingCards = [
   { title: "Hindu Wedding Cards", image: hindu1, route: "/HinduWeddingCards" },
-  { title: "Christian Wedding Cards", image: christian, route: "/HinduWeddingCards" },
-  { title: "Muslim Wedding Cards", image: muslim, route: "/HinduWeddingCards" },
+  { title: "Christian Wedding Cards", image: christian2, route: "/HinduWeddingCards" },
+  { title: "Muslim Wedding Cards", image: muslim2, route: "/HinduWeddingCards" },
   { title: "Sikh Wedding Cards", image: sikh, route: "/HinduWeddingCards" },
-  { title: "Interfaith Wedding Cards", image: interfaith, route: "/HinduWeddingCards" },
+  { title: "Interfaith Wedding Cards", image: interfaith1, route: "/HinduWeddingCards" },
   { title: "Exclusive Wedding Cards", image: exclusive, route: "/HinduWeddingCards" },
   { title: "Traditional Wedding Cards", image: traditional, route: "/HinduWeddingCards" },
   { title: "All Wedding Cards", image: all, route: "/HinduWeddingCards" },
   { title: "New Style Wedding Cards", image: newstyle, route: "/HinduWeddingCards" },
   { title: "Envelope Wedding Cards", image: envelope, route: "/HinduWeddingCards" },
-  { title: "Elegant Edit Wedding Cards", image: elegantedit, route: "/HinduWeddingCards" },
+  { title: "Elegant Edit Wedding Cards", image: elegant, route: "/HinduWeddingCards" },
   { title: "Nepali Wedding Cards", image: nepali, route: "/HinduWeddingCards" },
 ];
 
