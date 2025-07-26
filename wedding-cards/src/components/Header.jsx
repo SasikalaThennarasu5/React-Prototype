@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaUser, FaHeart, FaShoppingCart, FaSearch } from 'react-icons/fa';
-import headerLogo from '../assets/images/headerlogo.png';
+import headerlogo from '../assets/images/headerlogo.png';
 
 const Header = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -28,7 +28,7 @@ const Header = () => {
       {/* Top section */}
       <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
         <div className="flex-shrink-0">
-          <img src={headerLogo} alt="Logo" className="w-[250px] h-auto" />
+          <img src={headerlogo} alt="Logo" className="w-[250px] h-auto" />
         </div>
 
         {/* Search bar with peach hover */}
