@@ -1,6 +1,6 @@
 import React from 'react';
-/*import wedding from '../assets/images/wedding.png';*/
-import preWedding from '../assets/images/prewedding.png';
+import wedding from '../assets/images/wedding.png';
+import prewedding from '../assets/images/prewedding.png';
 import tajmahal from '../assets/images/tajmahal.png';
 
 const AboutUs = () => {
@@ -19,7 +19,7 @@ const AboutUs = () => {
         </div>
         <div className="md:col-span-6 flex justify-center">
           <img
-            src= "/wedding.png"
+            src= {wedding}
             alt="Wedding"
             className="w-60 h-auto rounded-md shadow-md"
           />
@@ -30,7 +30,7 @@ const AboutUs = () => {
       <div className="grid grid-cols-1 md:grid-cols-12 items-center gap-10 mb-16">
         <div className="md:col-span-6 flex justify-center">
           <img
-            src={preWedding}
+            src={prewedding}
             alt="Pre-Wedding"
             className="w-60 h-auto rounded-md shadow-md"
           />
