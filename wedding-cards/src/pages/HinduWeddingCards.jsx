@@ -4,8 +4,9 @@ import { FaHeart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 // Image imports
-import BlueLove from '../assets/images/beach-card.png';
-import Ganasha from '../assets/images/ganesha.png';
+//import BlueLove from '../assets/images/beach-card.png';
+import BlueLove from '../assets/images/ganesha.png';
+import Ganesha from '../assets/images/ganesha.png';
 import FavourBox from '../assets/images/favour-box.png';
 import Theme from '../assets/images/theme.png';
 import Vintage from '../assets/images/vintage.png';
@@ -19,7 +20,7 @@ import Gatefold from '../assets/images/gatefold.png';
 
 const cards = [
   { id: 1, title: "Blue Love Wedding Cards", price: "Rs. 72.25", image: BlueLove },
-  { id: 2, title: "Ganesha Wedding Cards", price: "Rs. 52.25", image: Ganasha },
+  { id: 2, title: "Ganesha Wedding Cards", price: "Rs. 52.25", image: Ganesha },
   { id: 3, title: "Wedding Cards favour box", price: "Rs. 49.45", image: FavourBox },
   { id: 4, title: "Theme Wedding Cards", price: "Rs. 30.00", image: Theme },
   { id: 5, title: "Vintage Wedding Cards", price: "Rs. 30.15", image: Vintage },
