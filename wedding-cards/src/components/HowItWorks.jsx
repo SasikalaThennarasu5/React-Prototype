@@ -1,8 +1,8 @@
 import React from "react";
-import orderSample from "../assets/images/order-sample.png";
-import getSample from "../assets/images/get-sample.png";
-import approveDraft from "../assets/images/approve-draft.png";
-import bulkOrder from "../assets/images/bulk-order.png";
+import orderSample from "../assets/images/ordersample.png";
+import getSample from "../assets/images/getsample.png";
+import approveDraft from "../assets/images/approvedraft.png";
+import bulkOrder from "../assets/images/bulkorder.png";
 import delivery from "../assets/images/delivery.png";
 
 const steps = [

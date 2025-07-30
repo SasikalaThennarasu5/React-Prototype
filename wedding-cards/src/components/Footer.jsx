@@ -9,7 +9,7 @@ import {
   FaEnvelope,
   FaRegCopyright,
 } from "react-icons/fa";
-import logo from "../assets/images/footer-logo.png";
+import logo from "../assets/images/footerlogo.png";
 
 const Footer = () => {
   return (
