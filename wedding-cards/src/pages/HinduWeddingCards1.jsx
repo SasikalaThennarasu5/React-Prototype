@@ -1,5 +1,4 @@
-// HinduWeddingCards.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaHeart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
@@ -34,21 +33,27 @@ const cards = [
 
 const HinduWeddingCards = () => {
   const [wishlist, setWishlist] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const saved = localStorage.getItem('wishlist');
+    if (saved) setWishlist(JSON.parse(saved));
+  }, []);
 
   const toggleWishlist = (card) => {
-    setWishlist((prev) => {
-      const exists = prev.find(item => item.id === card.id);
-      const updated = exists
-        ? prev.filter(item => item.id !== card.id)
-        : [...prev, card];
+    const updated = wishlist.some(item => item.id === card.id)
+      ? wishlist.filter(item => item.id !== card.id)
+      : [...wishlist, card];
 
-      // Save to localStorage
-      localStorage.setItem('wishlist', JSON.stringify(updated));
-      return updated;
-    });
+    setWishlist(updated);
+    localStorage.setItem('wishlist', JSON.stringify(updated));
   };
 
   const isWishlisted = (id) => wishlist.some(item => item.id === id);
+
+  const goToDescription = (card) => {
+    navigate(`/description/${card.id}`, { state: { product: card } });
+  };
 
   return (
     <div className="bg-[#E6E6FA] min-h-screen px-6 md:px-24 py-10 font-[Poppins]">
@@ -74,18 +79,20 @@ const HinduWeddingCards = () => {
               />
             </div>
 
-            <img
-              src={card.image}
-              alt={card.title}
-              className="w-full h-48 object-cover"
-            />
-            <div className="bg-[#FFE5B4] px-4 py-3">
-              <h3 className="text-[16px] text-gray-800 font-medium leading-tight">
-                {card.title}
-              </h3>
-              <p className="text-[#FFAB0D] font-semibold text-[14px] mt-1">
-                {card.price}
-              </p>
+            <div onClick={() => goToDescription(card)} className="cursor-pointer">
+              <img
+                src={card.image}
+                alt={card.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="bg-[#FFE5B4] px-4 py-3">
+                <h3 className="text-[16px] text-gray-800 font-medium leading-tight">
+                  {card.title}
+                </h3>
+                <p className="text-[#FFAB0D] font-semibold text-[14px] mt-1">
+                  {card.price}
+                </p>
+              </div>
             </div>
           </div>
         ))}

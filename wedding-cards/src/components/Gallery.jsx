@@ -1,52 +1,74 @@
-import React from "react";
-import hindu from "../assets/images/hindu.png";
-import christian from "../assets/images/christian.jpg";
-import muslim from "../assets/images/muslim.png";
-import interfaith from "../assets/images/interfaith.png";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import hinduImage from '../assets/images/hindu.png';
+import christianImage from '../assets/images/christian.jpg';
+import muslimImage from '../assets/images/muslim.png';
+import interfaithImage from '../assets/images/interfaith.png';
 
-const cards = [
+const collections = [
   {
-    title: "Hindu Invitation Collections",
-    image: hindu,
+    title: 'Hindu Invitation Collections',
+    image: hinduImage,
+    path: '/hinduWeddingCards',
   },
   {
-    title: "Christian Invitation Collections",
-    image: christian,
+    title: 'Christian Invitation Collections',
+    image: christianImage,
+    path: '/hinduWeddingCards',
   },
   {
-    title: "Muslim Invitation Collections",
-    image: muslim,
+    title: 'Muslim Invitation Collections',
+    image: muslimImage,
+    path: '/hinduWeddingCards',
   },
   {
-    title: "Interfaith Invitation Collections",
-    image: interfaith,
+    title: 'Interfaith Invitation Collections',
+    image: interfaithImage,
+    path: '/hinduWeddingCards',
   },
 ];
 
 const Gallery = () => {
   return (
-    <section className="bg-[#E6E6FA] py-12 px-6 md:px-24 font-poppins">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {cards.map((card, index) => (
+    <div className="bg-[#ebe9fd] py-10 px-6 sm:px-10 md:px-20">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        {collections.map((collection, index) => (
           <div
             key={index}
-            className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition duration-300 flex flex-col items-center"
+            className="bg-white rounded-md shadow-md overflow-hidden flex flex-col group transform transition duration-500 hover:scale-[1.03] hover:shadow-xl"
           >
-            <img
-              src={card.image}
-              alt={card.title}
-              className="h-80 w-full object-cover hover:scale-105 transition-transform duration-300"
-            />
-            <div className="p-4 text-center">
-              <h3 className="text-lg font-semibold mb-2">{card.title}</h3>
-              <button className="bg-[#FFAB0D] text-black font-bold py-2 px-6 rounded hover:bg-amber-600 transition">
-                Buy Now
-              </button>
+            {/* Image Zoom on Hover */}
+            <div className="overflow-hidden">
+              <img
+                src={collection.image}
+                alt={collection.title}
+                className="w-full h-[400px] object-cover transform transition-transform duration-500 group-hover:scale-110"
+              />
+            </div>
+
+            <div className="p-4 flex flex-col items-center">
+              <h3 className="text-center text-lg font-semibold mb-4">
+                {collection.title}
+              </h3>
+
+              {collection.path ? (
+                <Link to={collection.path}>
+                  <button className="bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg shadow-lg hover:bg-orange-700 transition-all duration-300">
+  Buy Now
+</button>
+
+                </Link>
+              ) : (
+                <button className="bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg shadow-lg hover:bg-orange-700 transition-all duration-300">
+  Buy Now
+</button>
+
+              )}
             </div>
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 };
 

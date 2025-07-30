@@ -1,128 +1,186 @@
-import React from 'react';
-import { useCart } from '../context/CartContext';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
-const Cart = () => {
-  const { cartItems, increaseQuantity, decreaseQuantity } = useCart();
+const CartModal = () => {
+  const {
+    cartItems,
+    isCartModalOpen,
+    setIsCartModalOpen,
+    removeFromCart,
+  } = useCart();
+
   const navigate = useNavigate();
+  const [warning, setWarning] = useState("");
 
-  const calculateSubTotal = () =>
-    cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  if (!isCartModalOpen) return null;
 
-  const calculateTax = () =>
-    cartItems.reduce((acc, item) => acc + item.price * item.quantity * 0.18, 0);
+  const subtotal = cartItems.reduce((sum, item) => {
+    const quantity = item.quantity || 0;
+    const price = item.price || 0;
+    return sum + price * quantity;
+  }, 0);
 
-  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-  const subTotal = calculateSubTotal();
-  const totalTax = calculateTax();
-  const total = subTotal + totalTax;
-
-  const handleContinueShopping = () => {
-    navigate('/'); 
-  };
+  const totalTax = +(subtotal * 0.18).toFixed(2);
+  const total = +(subtotal + totalTax).toFixed(2);
+  const totalQuantity = cartItems.reduce((sum, item) => sum + (item.quantity || 0), 0);
+  const canCheckout = totalQuantity >= 100;
 
   const handleCheckout = () => {
-    if (totalItems < 100) {
-    alert('Please add a minimum of 100 items to checkout.');
-  } else {
-    navigate('/checkout'); // Redirects to Checkout.jsx
-  }
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    if (!user) {
+      setWarning("Please login to continue");
+      setTimeout(() => setWarning(""), 2000);
+      return;
+    }
+
+    if (canCheckout) {
+      localStorage.setItem("checkoutCart", JSON.stringify(cartItems));
+      navigate("/checkout", { state: { fromCart: true } });
+    }
   };
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-12 font-[Poppins]">
-      <h2 className="text-2xl font-bold mb-6 text-black text-center">Your Cart</h2>
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+      <div className="bg-white w-[90%] max-w-7xl p-6 rounded-xl overflow-y-auto max-h-[80vh] relative">
+        {/* Close Button */}
+        <button
+          aria-label="Close"
+          className="absolute top-4 right-4 text-black text-xl lg:text-2xl"
+          onClick={() => setIsCartModalOpen(false)}
+        >
+          &times;
+        </button>
 
-      {cartItems.length === 0 ? (
-        <p className="text-center text-gray-500">Your cart is empty.</p>
-      ) : (
-        <>
-          {/* Table Headers */}
-          <div className="grid grid-cols-6 font-semibold text-black border-b pb-3 mb-4 text-center">
-            <div>Image</div>
-            <div>Product</div>
-            <div>Qty</div>
-            <div>Unit Price</div>
-            <div>Tax</div>
-            <div>Total</div>
-          </div>
+        {/* TABLE VIEW FOR DESKTOP & TABLET */}
+        <table className="w-full text-left border-collapse text-sm lg:text-base hidden md:table">
+          <thead>
+            <tr className="border-b border-black">
+              <th>Product</th>
+              <th>Qty</th>
+              <th>Unit Price</th>
+              <th>Tax</th>
+              <th>Price</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cartItems.map((item) => {
+              const quantity = item.quantity || 0;
+              const price = item.price || 0;
+              const itemTotal = +(price * quantity).toFixed(2);
+              return (
+                <tr key={item.id} className="border-b">
+                  <td>
+                    <div className="bg-orange-400 px-4 py-4 rounded-md mt-2 w-[150px]">
+                      <p className="text-sm lg:text-base font-bold">SKU: {item.sku}</p>
+                      <p className="text-xs lg:text-sm">SN ({item.sn || item.id})</p>
+                    </div>
+                  </td>
+                  <td>{quantity}</td>
+                  <td>Rs.{price.toFixed(2)}</td>
+                  <td>18%</td>
+                  <td>Rs.{itemTotal.toFixed(2)}</td>
+                  <td>
+                    <button
+                      className="text-red-600 font-bold text-sm hover:underline"
+                      onClick={() => removeFromCart(item.id)}
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+          <tfoot className="text-sm lg:text-base">
+            <tr>
+              <td colSpan="5" className="text-right font-semibold py-4">Sub Total:</td>
+              <td className="font-semibold">Rs.{subtotal.toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td colSpan="5" className="text-right font-semibold">Total Tax (18%):</td>
+              <td className="font-semibold">Rs.{totalTax.toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td colSpan="5" className="text-right font-bold py-4">Total:</td>
+              <td className="font-bold">Rs.{total.toFixed(2)}</td>
+            </tr>
+          </tfoot>
+        </table>
 
-          {/* Cart Items */}
-          {cartItems.map((item, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-6 items-center text-center border-b py-4 text-base"
-            >
-              <div className="flex justify-center">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="h-16 w-16 object-cover rounded"
-                />
-              </div>
-              <div className="text-left">{item.title}</div>
-              <div className="flex items-center justify-center space-x-2">
+        {/* MOBILE VIEW: STACKED CARDS */}
+        <div className="block md:hidden space-y-4">
+          {cartItems.map((item) => {
+            const quantity = item.quantity || 0;
+            const price = item.price || 0;
+            const itemTotal = +(price * quantity).toFixed(2);
+            return (
+              <div key={item.id} className="border p-4 rounded-lg shadow-sm">
+                <div className="bg-orange-400 px-4 py-2 rounded-md mb-2 w-fit">
+                  <p className="font-bold text-sm">SKU: {item.sku}</p>
+                  <p className="text-xs">SN ({item.sn || item.id})</p>
+                </div>
+                <p className="text-sm">Qty: <span className="font-semibold">{quantity}</span></p>
+                <p className="text-sm">Unit Price: <span className="font-semibold">Rs.{price.toFixed(2)}</span></p>
+                <p className="text-sm">Tax: <span className="font-semibold">18%</span></p>
+                <p className="text-sm">Price: <span className="font-semibold">Rs.{itemTotal.toFixed(2)}</span></p>
                 <button
-                  className="px-2 bg-gray-200 rounded"
-                  onClick={() => decreaseQuantity(item.id)}
+                  className="text-red-600 font-bold text-sm mt-2 hover:underline"
+                  onClick={() => removeFromCart(item.id)}
                 >
-                  -
-                </button>
-                <span>{item.quantity}</span>
-                <button
-                  className="px-2 bg-gray-200 rounded"
-                  onClick={() => increaseQuantity(item.id)}
-                >
-                  +
+                  Remove
                 </button>
               </div>
-              <div>Rs.{Number(item.price).toFixed(2)}</div>
-              <div>18%</div>
-              <div>Rs.{(item.price * item.quantity * 1.18).toFixed(2)}</div>
-            </div>
-          ))}
+            );
+          })}
 
-          {/* Totals */}
-          <div className="flex flex-col items-end text-black text-base mt-6 space-y-2">
-            <p>
-              <span className="font-semibold">Sub Total:</span>{" "}
-              <span className="ml-4">Rs.{subTotal.toFixed(2)}</span>
-            </p>
-            <p>
-              <span className="font-semibold">Total Tax:</span>{" "}
-              <span className="ml-4">Rs.{totalTax.toFixed(2)}</span>
-            </p>
-            <p className="text-lg font-bold">
-              <span>Total:</span> <span className="ml-4">Rs.{total.toFixed(2)}</span>
-            </p>
+          {/* Mobile Summary */}
+          <div className="text-sm font-medium text-right space-y-1 pt-4 border-t">
+            <p>Sub Total: <span className="font-semibold">Rs.{subtotal.toFixed(2)}</span></p>
+            <p>Total Tax (18%): <span className="font-semibold">Rs.{totalTax.toFixed(2)}</span></p>
+            <p className="font-bold pt-2">Total: <span className="font-bold">Rs.{total.toFixed(2)}</span></p>
           </div>
+        </div>
 
-          {/* Warning */}
-          {totalItems < 100 && (
-            <p className="text-center text-red-600 font-bold mt-8 text-lg">
-              TO CHECKOUT PLEASE ADD MINIMUM 100 ITEMS TO THE CART
-            </p>
-          )}
+        {/* Warnings */}
+        {!canCheckout && (
+          <p className="text-center text-red-600 font-bold mt-4 text-sm lg:text-base">
+            TO CHECKOUT PLEASE ADD MINIMUM 100 ITEMS TO THE CART
+          </p>
+        )}
+        {warning && (
+          <p className="text-center text-red-600 font-bold mt-2 text-sm lg:text-base">
+            {warning}
+          </p>
+        )}
 
-          {/* Buttons */}
-          <div className="flex justify-center mt-10 space-x-6">
-            <button
-              className="bg-[#FFB31A] text-black px-6 py-3 rounded-md font-semibold shadow-md hover:brightness-110"
-              onClick={handleContinueShopping}
-            >
-              Continue Shopping
-            </button>
-            <button
-              className="bg-gray-400 text-black px-6 py-3 rounded-md font-semibold shadow-md hover:bg-gray-500"
-              onClick={handleCheckout}
-            >
-              Checkout
-            </button>
-          </div>
-        </>
-      )}
+        {/* Buttons */}
+        <div className="mt-6 flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
+          <button
+            className="bg-orange-500 hover:bg-orange-600 px-6 py-2 rounded-lg text-white font-semibold text-sm lg:text-base"
+            onClick={() => {
+              setIsCartModalOpen(false);
+              navigate("/");
+            }}
+          >
+            Continue Shopping
+          </button>
+
+          <button
+            disabled={!canCheckout}
+            onClick={handleCheckout}
+            className={`${
+              canCheckout ? "bg-gray-800 hover:bg-gray-900" : "bg-gray-400"
+            } px-6 py-2 rounded-lg text-white font-semibold text-sm lg:text-base`}
+          >
+            Checkout
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Cart;
+export default CartModal;

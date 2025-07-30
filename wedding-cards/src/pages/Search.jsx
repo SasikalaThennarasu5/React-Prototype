@@ -1,102 +1,136 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import card1 from "../assets/images/cards1.png";
+import card2 from "../assets/images/cards2.png";
+import card3 from "../assets/images/cards3.png";
+import card4 from "../assets/images/cards4.png";
+import card5 from "../assets/images/cards5.png";
+import card6 from "../assets/images/cards6.png";
+import card7 from "../assets/images/cards7.png";
+import card8 from "../assets/images/cards8.png";
+import card9 from "../assets/images/cards9.png";
+import card10 from "../assets/images/cards10.png";
+import card11 from "../assets/images/cards11.png";
+import { FaSearch } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 
-// Import images
-import hindu2 from '../assets/images/hindu2.png';
-import simple1 from '../assets/images/simple1.png';
-import muslim1 from '../assets/images/muslim1.png';
-import scroll1 from '../assets/images/scroll1.png';
-import luxury1 from '../assets/images/luxury1.png';
-import post1 from '../assets/images/post1.png';
-import scroll2 from '../assets/images/scroll2.png';
-import ganesha from '../assets/images/ganesha.png';
-import custom1 from '../assets/images/custom1.png';
-import laser1 from '../assets/images/laser1.png';
-import hindu3 from '../assets/images/hindu3.png';
+const initialFilters = [
+  "Wedding Cards",
+  "Scroll Cards",
+  "Theme Cards",
+  "Birthday Cards",
+  "Engagement Cards"
+];
 
 const Search = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filters] = useState([
-    'Wedding Cards',
-    'Scroll Cards',
-    'Theme Cards',
-    'Birthday Cards',
-    'Engagement Cards',
-  ]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filters, setFilters] = useState(initialFilters);
+  const navigate = useNavigate();
 
-  const ideas = [
-    { title: 'Hindu Wedding Card', image: hindu2 },
-    { title: 'Simple Wedding Card', image: simple1 },
-    { title: 'Muslim Wedding Card', image: muslim1 },
-    { title: 'Scroll Wedding Card', image: scroll1 },
-    { title: 'Luxury Wedding Card', image: luxury1 },
-  ];
+  const removeFilter = (filterToRemove) => {
+    setFilters(filters.filter((f) => f !== filterToRemove));
+  };
 
-  const popular = [
-    { title: 'Post Theme Wedding Card', image: post1 },
-    { title: 'Scroll Wedding Card', image: scroll2 },
-    { title: 'Theme Wedding Card', image: ganesha },
-    { title: 'Customize Wedding Card', image: custom1 },
-    { title: 'Laser Wedding Card', image: laser1 },
-    { title: 'Hindu Wedding Card', image: hindu3 },
-  ];
+  const handleSearch = () => {
+    const query = searchQuery.trim().toLowerCase();
+    if (query === "wedding cards" || query === "wedding card") {
+      navigate("/wedding-cards");
+    } else {
+      console.log("Search for:", searchQuery);
+    }
+  };
+
+  const handleCardClick = (img) => {
+    if (img === card1) {
+      navigate("/hindu-wedding-cards");
+    }
+  };
+
+  const handleFilterClick = (filter) => {
+    if (filter === "Wedding Cards") {
+      setSearchQuery("Wedding Cards");
+    }
+  };
+
+  const ideas = [card1, card2, card3, card4, card5];
+  const popular = [card6, card7, card8, card9, card10, card11];
 
   return (
-    <div className="bg-[#EAE6FA] min-h-screen px-4 py-6">
-      <h1 className="text-center text-xl font-semibold text-gray-800 mb-1">
+    <section className="bg-[#e7e2f9] py-12 px-4 md:px-10 text-center">
+      <h2 className="text-2xl sm:text-3xl font-extrabold mb-2 hidden md:block">
         Everything You Need, to Plan your Dream Wedding
-      </h1>
-      <p className="text-center text-sm text-gray-600 mb-6">
+      </h2>
+      <p className="text-base sm:text-lg mb-6 text-black-700 font-medium hidden md:block">
         Search for vendors, cards, ideas and real wedding stories and more!
       </p>
 
-      <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
-        <button className="bg-yellow-400 text-sm font-semibold text-white px-4 py-1 rounded">
+      <div className="flex flex-col sm:flex-row justify-center gap-2 mb-6">
+        <button className="bg-pink-400 text-white cursor-pointer font-semibold py-2 px-6 rounded-full hover:bg-pink-500 transition-all">
           All
         </button>
-        {filters.map((tag, idx) => (
+        <div className="relative w-full max-w-lg">
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full py-2 pl-4 pr-10 rounded-full border border-black-300 focus:outline-none focus:ring-2 focus:ring-pink-400"
+          />
+          <FaSearch
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+            onClick={handleSearch}
+          />
+        </div>
+      </div>
+
+      <div className="flex flex-wrap justify-center gap-3 mb-10 hidden md:flex">
+        {filters.map((filter) => (
           <span
-            key={idx}
-            className="bg-white text-gray-700 px-3 py-1 rounded-full text-sm shadow-sm border"
+            key={filter}
+            onClick={() => handleFilterClick(filter)}
+            className="flex items-center bg-white border border-gray-300 text-sm px-3 py-1 rounded-full shadow-sm cursor-pointer hover:bg-gray-100"
           >
-            {tag}
+            {filter}
+            <IoClose
+              className="ml-2 cursor-pointer text-gray-600 hover:text-red-500"
+              onClick={(e) => {
+                e.stopPropagation();
+                removeFilter(filter);
+              }}
+            />
           </span>
         ))}
       </div>
 
-      <div className="flex justify-center mb-6">
-        <input
-          type="text"
-          placeholder="Search wedding cards..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full max-w-md px-4 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring focus:border-blue-300"
-        />
-      </div>
-
-      <div className="mb-10">
-        <h2 className="text-lg font-semibold text-gray-800 mb-3">Ideas for you</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-          {ideas.map((item, idx) => (
-            <div key={idx} className="bg-white rounded-lg shadow-sm overflow-hidden">
-              <img src={item.image} alt={item.title} className="w-full h-40 object-cover" />
-              <div className="p-2 text-center text-sm font-medium text-gray-700">{item.title}</div>
-            </div>
+      <div className="text-left max-w-6xl mx-auto mb-10">
+        <h3 className="text-xl font-bold mb-4 hidden md:block">Ideas for You</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {ideas.map((img, index) => (
+            <img
+              key={index}
+              src={img}
+              alt={`Idea ${index + 1}`}
+              onClick={() => handleCardClick(img)}
+              className="w-full h-[150px] object-cover rounded-lg mb-5 cursor-pointer hover:scale-105 transition-transform duration-300"
+            />
           ))}
         </div>
       </div>
 
-      <div>
-        <h2 className="text-lg font-semibold text-gray-800 mb-3">Popular on this</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-          {popular.map((item, idx) => (
-            <div key={idx} className="bg-white rounded-lg shadow-sm overflow-hidden">
-              <img src={item.image} alt={item.title} className="w-full h-40 object-cover" />
-              <div className="p-2 text-center text-sm font-medium text-gray-700">{item.title}</div>
-            </div>
+      <div className="text-left max-w-6xl mx-auto">
+        <h3 className="text-xl font-bold mb-4 hidden md:block">Popular on This</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {popular.map((img, index) => (
+            <img
+              key={index}
+              src={img}
+              alt={`Popular ${index + 1}`}
+              className="w-full h-[150px] object-cover rounded-lg mb-5 cursor-pointer hover:scale-105 transition-transform duration-300"
+            />
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

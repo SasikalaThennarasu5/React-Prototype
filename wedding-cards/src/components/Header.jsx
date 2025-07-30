@@ -1,139 +1,247 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaUser, FaHeart, FaShoppingCart, FaSearch } from 'react-icons/fa';
-import headerlogo from '../assets/images/headerlogo.png';
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../assets/images/headerlogo.png";
+import { useCart } from "../context/CartContext";
+import Cart from "../pages/Cart";
+import { useLocation } from "react-router-dom";
+import '../App.css';
 
 const Header = () => {
-  const [activeDropdown, setActiveDropdown] = useState(null);
-  const navRef = useRef(null);
+  const location = useLocation();
+  const { totalItems, setIsCartModalOpen } = useCart();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isSpecialDropdownOpen, setIsSpecialDropdownOpen] = useState(false);
+  const [isThemeDropdownOpen, setIsThemeDropdownOpen] = useState(false);
+  const [isScrollDropdownOpen, setIsScrollDropdownOpen] = useState(false);
+  const [isDigitalDropdownOpen, setIsDigitalDropdownOpen] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const navigate = useNavigate();
+  const handleSearchClick = () => {
+        navigate("/search");
+    };
 
-  const handleToggle = (menu) => {
-    setActiveDropdown((prev) => (prev === menu ? null : menu));
-  };
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    setLoggedInUser(user);
+  }, [location]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (navRef.current && !navRef.current.contains(event.target)) {
-        setActiveDropdown(null);
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setUserDropdownOpen(false);
       }
     };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("loggedInUser");
+    setLoggedInUser(null);
+    setUserDropdownOpen(false);
+  };
+
   return (
-    <header className="bg-[#E6E6FA] px-6 py-4 relative z-50">
-      {/* Top section */}
-      <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
-        <div className="flex-shrink-0">
-          <img src={headerlogo} alt="Logo" className="w-[250px] h-auto" />
-        </div>
+    <header className="bg-[#E6E6FA] w-full">
+      {/* === Top Row === */}
+      <div className="flex flex-col md:flex-row flex-wrap items-center justify-between pt-3 pb-3 gap-y-6 md:gap-y-0">
+        
+<img
+  src={logo}
+  alt="Logo"
+  className="w-[80%] max-w-[320px] h-[200px] object-contain mx-auto md:ml-20 md:mx-0"
+/>
 
-        {/* Search bar with peach hover */}
-        <div className="flex-1 mx-6 max-w-xl w-full relative group">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-full py-2 pl-4 pr-10 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300 group-hover:bg-peach-200 transition duration-200"
-            style={{ backgroundColor: 'white' }}
-            onMouseEnter={(e) => (e.target.style.backgroundColor = '#FFDAB9')}
-            onMouseLeave={(e) => (e.target.style.backgroundColor = 'white')}
-          />
-          <FaSearch
-            onClick={() => navigate('/search')}
-            className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-600 cursor-pointer"
-          />
-        </div>
+        {/* === Search + Icons + Toggle === */}
+        <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-16 flex-grow justify-center md:justify-end mr-4 md:mr-20 w-full md:w-auto px-4 md:px-0">
+          {/* Search */}
+          <div className="relative w-full sm:w-[400px] md:w-[300px]">
+            <input
+              type="text"
+              placeholder="Search..."
+              onFocus={handleSearchClick}
+              className="w-full h-[50px] md:h-[60px] py-2 pl-4 pr-12 rounded-lg border border-black outline-none text-base md:text-lg bg-[#E6E6FA]"
+            />
+            <i className="bi bi-search absolute right-4 top-4 text-black text-[16px]"></i>
+          </div>
 
-        <div className="flex items-center space-x-6 text-2xl text-black">
-          <FaUser className="cursor-pointer" onClick={() => navigate('/login')} />
-          <FaHeart className="cursor-pointer" onClick={() => navigate('/wishlist')} />
-          <div className="relative">
-            <FaShoppingCart className="cursor-pointer" onClick={() => navigate('/cart')} />
-            <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              1
-            </span>
+          {/* Icons + Toggle */}
+          <div className="flex items-center gap-6 md:gap-10 mt-2 md:mt-0">
+            {/* === Login/Username === */}
+            {loggedInUser ? (
+              <div className="relative" ref={dropdownRef}>
+                <div
+                  className="flex items-center space-x-1 cursor-pointer"
+                  onClick={() => setUserDropdownOpen((prev) => !prev)}
+                >
+                  <i className="bi bi-person text-[24px]"></i>
+                  <span className="text-sm font-medium">
+                    Hello, {loggedInUser.email.split("@")[0]}
+                  </span>
+                  <i className="bi bi-caret-down-fill text-xs"></i>
+                </div>
+                {userDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-[150px] bg-white border rounded shadow z-50 text-sm">
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link to="/login" className="flex items-center space-x-1 hover:text-blue-600">
+                <i className="bi bi-person text-[24px] cursor-pointer"></i>
+              </Link>
+            )}
+
+            {/* Wishlist */}
+            <div className="flex items-center space-x-4">
+              <Link to="/wishlist">
+                <i className="bi bi-heart text-[24px] cursor-pointer"></i>
+              </Link>
+            </div>
+
+            {/* Cart */}
+            <div className="relative">
+              <i
+                className="bi bi-cart text-[24px] cursor-pointer"
+                onClick={() => setIsCartModalOpen(true)}
+              ></i>
+              <span className="absolute -top-2 -right-2 text-[10px] bg-black text-white rounded-full px-[6px]">
+                {totalItems}
+              </span>
+            </div>
+            <Cart />
+
+            {/* Toggle Button (visible on mobile + tablet only) */}
+            <button
+              className="lg:hidden text-[28px] focus:outline-none"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <i className={`bi ${menuOpen ? "bi-x" : "bi-list"}`}></i>
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="mt-6 relative" ref={navRef}>
-        <ul className="flex flex-wrap justify-center gap-10 text-lg lg:text-2xl font-semibold text-black">
-          <li className="cursor-pointer" onClick={() => navigate('/')}>Home</li>
-          <li className="cursor-pointer" onClick={() => navigate('/weddingcards')}>Wedding Invitation</li>
+      {/* === Bottom Navbar === */}
+     <nav className="hidden lg:flex justify-center items-center space-x-[60px] py-4 text-black text-[1.2em] font-bold">
 
-          {/* Dropdowns... (same as before) */}
-          {/* Special Occasions */}
-          <li className="relative cursor-pointer" onClick={() => handleToggle('special')}>
-            Special occasions
-            {activeDropdown === 'special' && (
-              <ul className="absolute left-0 top-full mt-2 w-64 bg-[#FFE4B5] shadow-lg rounded-lg text-black p-4 space-y-2 text-base z-50">
-                {/* Add links if needed */}
-                {['Birthday Invitations', 'Puberty Cards', 'Luxury Invitations', 'Ear Boring Cards', 'Engagement Cards', 'House Warming', 'Anniversary Cards'].map((item) => (
-                  <li key={item} className="hover:bg-orange-400 hover:text-white px-2 py-1 rounded cursor-pointer">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
 
-          {/* Other dropdowns remain unchanged (Theme, Scroll, Digital) */}
-          {/* Theme Cards */}
-          <li className="relative cursor-pointer" onClick={() => handleToggle('theme')}>
-            Theme Cards
-            {activeDropdown === 'theme' && (
-              <ul className="absolute left-0 top-full mt-2 w-64 bg-[#FFE4B5] shadow-lg rounded-lg text-black p-4 space-y-2 text-base z-50">
-                {[
-                  'Beach Theme Cards',
-                  'Bride Theme Cards',
-                  'Box Card',
-                  'Single Sheet Cards',
-                ].map((item) => (
-                  <li key={item} className="hover:bg-orange-400 hover:text-white px-2 py-1 rounded cursor-pointer">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
+        <Link to="/" className="hover:underline transition">Home</Link>
+        <Link to="/wedding-cards" className="hover:underline transition">Wedding Invitation</Link>
 
-          {/* Scroll Invitation */}
-          <li className="relative cursor-pointer" onClick={() => handleToggle('scroll')}>
-            Scroll Invitation
-            {activeDropdown === 'scroll' && (
-              <ul className="absolute left-0 top-full mt-2 w-64 bg-[#FFE4B5] shadow-lg rounded-lg text-black p-4 space-y-2 text-base z-50">
-                {[
-                  'Small Size Scroll',
-                  'Box Scroll',
-                  'Only Scroll',
-                  'High End Scroll',
-                ].map((item) => (
-                  <li key={item} className="hover:bg-orange-400 hover:text-white px-2 py-1 rounded cursor-pointer">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
+        {/* === Special Occasions Dropdown === */}
+        <div className="relative cursor-pointer">
+  <span
+    onClick={() => setIsSpecialDropdownOpen(prev => !prev)}
+    className="hover:underline transition inline-block"
+  >
+    Special Occasions
+  </span>
 
-          {/* Digital Invitation */}
-          <li className="relative cursor-pointer" onClick={() => handleToggle('digital')}>
-            Digital Invitation
-            {activeDropdown === 'digital' && (
-              <ul className="absolute right-0 top-full mt-2 w-64 bg-[#FFE4B5] shadow-lg rounded-lg text-black p-4 space-y-2 text-base z-50">
-                {['Whatsapp Card', 'Save the Date Cards'].map((item) => (
-                  <li key={item} className="hover:bg-orange-400 hover:text-white px-2 py-1 rounded cursor-pointer">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        </ul>
+  {isSpecialDropdownOpen && (
+    <div
+      className="absolute top-full left-0 bg-[#FFE4B5] mt-2 p-4 rounded shadow-lg w-[250px] z-50"
+      onMouseLeave={() => setIsSpecialDropdownOpen(false)}
+    >
+      <ul className="text-black text-[1rem] space-y-2 font-medium">
+        <li><Link to="/birthday-invitations" className="block hover:text-[#FFAB0D]">Birthday Invitations</Link></li>
+        <li><Link to="/puberty-cards" className="block hover:text-[#FFAB0D]">Puberty Cards</Link></li>
+        <li><Link to="/luxury-invitations" className="block hover:text-[#FFAB0D]">Luxury Invitations</Link></li>
+        <li><Link to="/ear-piercing-cards" className="block hover:text-[#FFAB0D]">Ear Boring Cards</Link></li>
+        <li><Link to="/engagement-cards" className="block hover:text-[#FFAB0D]">Engagement Cards</Link></li>
+        <li><Link to="/house-warming" className="block hover:text-[#FFAB0D]">House Warming</Link></li>
+        <li><Link to="/anniversary-cards" className="block hover:text-[#FFAB0D]">Anniversary Cards</Link></li>
+      </ul>
+    </div>
+  )}
+</div>
+
+
+        {/* === Theme Cards Dropdown === */}
+       <div className="relative cursor-pointer">
+  <span
+    onClick={() => setIsThemeDropdownOpen(prev => !prev)}
+    className="hover:underline transition inline-block"
+  >
+    Theme Cards
+  </span>
+
+  {isThemeDropdownOpen && (
+    <div
+      className="absolute top-full left-0 bg-[#FFE4B5] mt-2 p-4 rounded shadow-lg w-[250px] z-50"
+      onMouseLeave={() => setIsThemeDropdownOpen(false)}
+    >
+      <ul className="text-black text-[1rem] space-y-2 font-medium">
+        <li><Link to="/beach-cards" className="block hover:text-[#FFAB0D]">Beach Theme Cards</Link></li>
+        <li><Link to="/birdie-cards" className="block hover:text-[#FFAB0D]">Birdie Theme Cards</Link></li>
+        <li><Link to="/Box-cards" className="block hover:text-[#FFAB0D]">Box Cards</Link></li>
+        <li><Link to="/Single-sheet-cards" className="block hover:text-[#FFAB0D]">Single Sheet Cards</Link></li>
+      </ul>
+    </div>
+  )}
+</div>
+
+
+        {/* <Link to="/scroll-invitation" className="hover:underline transition">Scroll Invitation</Link> */}
+        {/* === Scroll Cards Dropdown === */}
+       <div className="relative cursor-pointer">
+  <span
+    onClick={() => setIsScrollDropdownOpen(prev => !prev)}
+    className="hover:underline transition inline-block"
+  >
+    Scroll Invitation
+  </span>
+
+  {isScrollDropdownOpen && (
+    <div
+      className="absolute top-full left-0 bg-[#FFE4B5] mt-2 p-4 rounded shadow-lg w-[250px] z-50"
+      onMouseLeave={() => setIsScrollDropdownOpen(false)}
+    >
+      <ul className="text-black text-[1rem] space-y-2 font-medium">
+        <li><Link to="/small-scroll" className="block hover:text-[#FFAB0D]">Small Size Scroll</Link></li>
+        <li><Link to="/box-scroll" className="block hover:text-[#FFAB0D]">Box Scroll</Link></li>
+        <li><Link to="/only-scroll" className="block hover:text-[#FFAB0D]">Only Scroll</Link></li>
+        <li><Link to="/high-end-scroll" className="block hover:text-[#FFAB0D]">High End Scroll</Link></li>
+      </ul>
+    </div>
+  )}
+</div>
+
+        {/* <Link to="/digital-invitation" className="hover:underline transition">Digital Invitation</Link> */}
+        <div className="relative cursor-pointer" onClick={() => setIsDigitalDropdownOpen(prev => !prev)}>
+  <span className="hover:underline transition inline-block">
+    Digital Invitation
+  </span>
+
+  {isDigitalDropdownOpen && (
+    <div
+      className="absolute top-full left-0 bg-[#FFE4B5] mt-2 p-4 rounded shadow-lg w-[250px] z-50"
+      onMouseLeave={() => setIsDigitalDropdownOpen(false)}
+    >
+      <ul className="text-black text-[1rem] space-y-2 font-medium">
+        <li>
+          <Link to="/small-scroll" className="block hover:text-[#FFAB0D]">
+            Whatsapp Cards
+          </Link>
+        </li>
+        <li>
+          <Link to="/box-scroll" className="block hover:text-[#FFAB0D]">
+            Save the Date Cards
+          </Link>
+        </li>
+      </ul>
+    </div>
+  )}
+</div>
+
+
       </nav>
     </header>
   );

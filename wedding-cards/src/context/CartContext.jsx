@@ -1,62 +1,66 @@
-// src/context/CartContext.jsx
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
 
-// Create the context
 const CartContext = createContext();
 
-// Provider component
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  // ✅ Load cart from localStorage on first render
+  const [cartItems, setCartItems] = useState(() => {
+    const storedCart = localStorage.getItem("cartItems");
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
 
-  const addToCart = (item) => {
-    setCartItems(prevItems => {
-      const existing = prevItems.find(i => i.id === item.id);
-      if (existing) {
-        return prevItems.map(i =>
-          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
-        );
-      } else {
-        return [...prevItems, { ...item, quantity: 1 }];
-      }
-    });
-  };
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
-  const increaseQuantity = (id) => {
-    setCartItems(prevItems =>
-      prevItems.map(item =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
-  };
+  // ✅ Save cart to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
-  const decreaseQuantity = (id) => {
-    setCartItems(prevItems =>
-      prevItems
-        .map(item =>
-          item.id === id && item.quantity > 1
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        )
-        .filter(item => item.quantity > 0)
-    );
-  };
+  const addToCart = (product, quantity, image, title) => {
+  setCartItems((prev) => {
+    const existing = prev.find((item) => item.id === product.id);
+    if (existing) {
+      return prev.map((item) =>
+        item.id === product.id
+          ? { ...item, quantity: item.quantity + quantity }
+          : item
+      );
+    }
+    return [
+      ...prev,
+      {
+        ...product,
+        quantity,
+        image, // store image
+        title, // store title
+      },
+    ];
+  });
+  setIsCartModalOpen(true);
+};
 
+
+  // Remove item from cart by ID
   const removeFromCart = (id) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== id));
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
+
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, increaseQuantity, decreaseQuantity, removeFromCart }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart, // 👈 make it available
+        totalItems,
+        isCartModalOpen,
+        setIsCartModalOpen,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
 };
 
-// Custom hook
-export const useCart = () => {
-  const context = useContext(CartContext);
-  if (!context) {
-    throw new Error("useCart must be used within a CartProvider");
-  }
-  return context;
-};
+export const useCart = () => useContext(CartContext);

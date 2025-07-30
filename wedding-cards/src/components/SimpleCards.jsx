@@ -1,73 +1,65 @@
-import React from 'react';
-
-const cards = [
-  {
-    id: 1,
-    title: "Traditional Open-fold Style Hindu Wedding Card",
-    image: "/src/assets/images/card1.png",
-    price: "₹5.00",
-  },
-  {
-    id: 2,
-    title: "Vibrant Hindu Invitation Open Fold - Matte Finish",
-    image: "/src/assets/images/card2.png",
-    price: "₹6.00",
-  },
-  {
-    id: 3,
-    title: "Dual Vertical Panel Hindu Wedding Invite",
-    image: "/src/assets/images/card3.png",
-    price: "₹6.00",
-  },
-  {
-    id: 4,
-    title: "Ornamental Hindu Invitation with Floral Artwork",
-    image: "/src/assets/images/card4.png",
-    price: "₹7.00",
-  },
-  {
-    id: 5,
-    title: "Simple Elegant Hindu Invite – Minimal Design",
-    image: "/src/assets/images/card5.jpg",
-    price: "₹6.50",
-  },
-  {
-    id: 6,
-    title: "Traditional Red Hindu Marriage Invite – Gold Foil",
-    image: "/src/assets/images/card6.png",
-    price: "₹8.00",
-  },
-];
+import React, { useContext } from "react";
+import { SimpleCardsData } from "./SimpleCardsData";
+import { FaHeart, FaShoppingBag } from "react-icons/fa";
+import { useCart } from "../context/CartContext";
+import { WishlistContext } from "../context/WishlistContext";
+import { useNavigate } from "react-router-dom";
 
 const SimpleCards = () => {
+  const { addToCart } = useCart();
+  const { toggleWishlistItem, wishlist } = useContext(WishlistContext);
+  const navigate = useNavigate();
+
+  const isInWishlist = (id) => wishlist.some((item) => item.id === id);
+
   return (
-    <div className="bg-[#e9e6fb] min-h-screen py-10 px-4">
-      <h1 className="text-2xl md:text-3xl font-semibold text-center mb-10">
+    <div className="bg-[#EAE6FA] py-12 px-2 sm:px-4 md:px-8">
+      <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
         Simple and Affordable Wedding Cards
-      </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        {cards.map((card) => (
+      </h2>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-14 lg:gap-20 max-w-[1200px] mx-auto">
+        {SimpleCardsData.map((card) => (
           <div
             key={card.id}
-            className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
+            className="bg-white rounded-xl shadow-md p-6 transition-all duration-500 group hover:rotate-[1deg] hover:scale-[1.03] hover:shadow-xl relative"
           >
-            <img
-              src={card.image}
-              alt={card.title}
-              className="w-full h-64 object-contain p-4"
-            />
-            <div className="px-4 pb-4">
-              <h2 className="text-sm font-medium mt-2 mb-1">{card.title}</h2>
-              <div className="flex justify-between items-center mt-1">
-                <p className="text-sm font-semibold">{card.price}</p>
-                <div className="flex gap-2 text-gray-500">
-                  <button title="Add to Wishlist">
-                    <i className="fa-regular fa-heart"></i>
-                  </button>
-                  <button title="View Details">
-                    <i className="fa-regular fa-eye"></i>
-                  </button>
-                </div>
+            {/* Image with hover zoom effect */}
+            <div className="overflow-hidden rounded-md">
+              <img
+                src={card.src}
+                alt={card.title}
+                onClick={() => navigate(`/Simple/${card.id}`)}
+                className="cursor-pointer w-full h-[250px] object-cover rounded-md transform transition-transform duration-500 group-hover:scale-110"
+              />
+            </div>
+
+            <h3 className="text-lg font-semibold mt-4 mb-4 text-center">
+              {card.title}
+            </h3>
+
+            <div className="flex items-center justify-between px-2">
+              <span className="text-[18px] font-medium">
+                Rs. {card.price.toFixed(2)}
+              </span>
+
+              {/* Icons with hover bounce/scale */}
+              <div className="flex space-x-4 text-[22px]">
+                <FaHeart
+                  onClick={() =>
+                    toggleWishlistItem({ ...card, type: "Simple" })
+                  }
+                  className={`cursor-pointer transform transition-all duration-300 hover:scale-125 ${
+                    isInWishlist(card.id)
+                      ? "text-red-500"
+                      : "text-gray-600 hover:text-red-400"
+                  }`}
+                />
+
+                <FaShoppingBag
+                  onClick={() => addToCart(card, 1)}
+                  className="cursor-pointer text-gray-600 hover:text-green-600 transform transition-all duration-300 hover:scale-125"
+                />
               </div>
             </div>
           </div>
