@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import mainImage from "../assets/images/order-confirmed.png";
+import mainImage from "../assets/images/orderconfirmed.png";
 import { useLocation } from "react-router-dom";
 import AnimatedTick from "../components/AnimatedTick";
 import { FaUser, FaEnvelope, FaPhone, FaHome, FaShoppingBag } from "react-icons/fa";
