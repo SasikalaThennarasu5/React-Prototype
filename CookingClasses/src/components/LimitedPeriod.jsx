@@ -12,7 +12,7 @@ export default function LimitedPeriod() {
   }, []);
 
   const handleClick = () => {
-    navigate("/courseDescription");
+    navigate("/course-des");
   };
 
   return (
