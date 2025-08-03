@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { FiPaperclip, FiUser } from 'react-icons/fi';
 import { BsEmojiSmile } from 'react-icons/bs';
-import defaultReplies from '../data/chatData';
+import defaultReplies from '../data/ChatData';
 
 const ViewCourses = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
