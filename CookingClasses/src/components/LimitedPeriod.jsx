@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import offerImage from "../assets/images/cranberry.png"; 
+import offer from "../assets/images/cranberry.png"; 
 
 export default function LimitedPeriod() {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ export default function LimitedPeriod() {
     >
       {/* Background Image */}
       <img
-        src={offerImage}
+        src={offer}
         alt="Cranberries Offer"
         className="w-[100%] h-[60vh] object-cover"
       />
