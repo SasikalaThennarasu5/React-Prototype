@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import CourseDescriptionHero from '../components/CourseDescriptionHero';
 import CourseCurriculum from '../components/CourseCurriculum';
-import banner3Image from '../assets/images/recipe.png';
+
 import Testimonials from '../components/Testimonials';
 import ViewCourses from '../components/ViewCourses';
-import bannerImage from '../assets/images/features.png';
+
 import SampleVideo from '../components/SampleVideo';
 import Features from '../components/Features';
 

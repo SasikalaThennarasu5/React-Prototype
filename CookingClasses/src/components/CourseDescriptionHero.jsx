@@ -1,5 +1,5 @@
 import React from 'react';
-import banner1Image from '../assets/images/rectangle 27.png';
+import banner1Image from '../assets/images/Rectangle 27.png';
 import followers from '../assets/images/followers-icon.png';
 import books from '../assets/images/books-icon.png';
 import experience from '../assets/images/experience-icon.png';

@@ -1,5 +1,5 @@
 import React from 'react';
-import banner2Image from '../assets/images/rectangle 13.png';
+import banner2Image from '../assets/images/Rectangle 13.png';
 
 function CourseCurriculum() {
   return (
