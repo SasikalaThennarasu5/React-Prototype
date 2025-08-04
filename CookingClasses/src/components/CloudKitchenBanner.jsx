@@ -4,7 +4,7 @@ import rectangle from '../assets/images/Rectangle 12.png';
 import cheffimg from '../assets/images/image 3.png';
 import { useNavigate } from "react-router-dom";
 import calender from '../assets/images/calendar-icon.png';
-import video from '../assets/images/video.png';
+import video from '../assets/images/video-icon.png';
 import recipe from '../assets/images/recipe-icon.png';
 import connectivity from '../assets/images/masterclass-icon.png';
 
