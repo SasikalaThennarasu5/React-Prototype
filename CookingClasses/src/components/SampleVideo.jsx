@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import noodlesImg from "../assets/images/video.png";
+import noodles from "../assets/images/recipe.png";
 import recipeVideo from "../assets/images/noodles.mp4";
 
 
@@ -19,7 +19,7 @@ export default function SampleVideo() {
         {!playing ? (
           <>
             <img
-              src={noodlesImg}
+              src={noodles}
               alt="Veg Hakka Noodles"
               className="w-full h-full object-cover"
             />
