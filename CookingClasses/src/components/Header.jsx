@@ -34,11 +34,7 @@ export default function Header() {
     return () => window.removeEventListener("userLogin", loadUser);
   }, []);
 
-  const logout = () => {
-    localStorage.removeItem("loggedInUser");
-    setUser(null);
-    setDropdownOpen(false);
-  };
+  
 
   // Trigger program dropdown open from context
   useEffect(() => {
@@ -163,16 +159,7 @@ export default function Header() {
               Hello! {user?.name || "User"}
             </button>
 
-            {dropdownOpen && (
-              <div className="absolute right-0 mt-2 bg-white border rounded shadow-lg z-50 w-32">
-                <button
-                  onClick={logout}
-                  className="block w-full text-left px-4 py-2 text-sm text-red-700 hover:bg-red-100"
-                >
-                  Logout
-                </button>
-              </div>
-            )}
+            
           </div>
         ) : (
           <>

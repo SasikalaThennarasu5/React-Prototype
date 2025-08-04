@@ -18,7 +18,14 @@ import ForgotPassword from "./components/ForgotPassword";
 import EnrollCompleted from "./components/EnrollCompleted";
 import ScrollToTop from "./components/ScrollToTop";
 import './App.css';
-
+import Course1 from "./components/Course1";
+import Course2 from "./components/Course2";
+import Course3 from "./components/Course3";
+import Course4 from "./components/Course4";
+import Course5 from "./components/Course5";
+import Course6 from "./components/Course6";
+import Course7 from "./components/Course7";
+import Course8 from "./components/Course8";
 import { DropdownProvider } from "./components/DropdownContext";
 
 
@@ -50,6 +57,14 @@ function LayoutRoutes() {
         <Route path="/course-des" element={<CourseDescription />} />
         <Route path="/enroll" element={<Enroll />} />
         <Route path="/enrollCompleted" element={<EnrollCompleted />} />
+        <Route path="/course1" element={<Course1 />} />
+        <Route path="/course2" element={<Course2 />} />
+        <Route path="/course3" element={<Course3 />} />
+        <Route path="/course4" element={<Course4 />} />
+        <Route path="/course5" element={<Course5 />} />
+        <Route path="/course6" element={<Course6 />} />
+        <Route path="/course7" element={<Course7 />} />
+        <Route path="/course8" element={<Course8 />} />
        
       </Routes>
 

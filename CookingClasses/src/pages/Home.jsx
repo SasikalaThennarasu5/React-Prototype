@@ -4,7 +4,7 @@ import FeaturedCourses from "../components/FeaturedCourses";
 import LimitedPeriod from "../components/LimitedPeriod";
 import AllCourses from "../components/AllCourses";
 import ViewCourses from "../components/ViewCourses";
-import Faq from "../components/Faq";
+import FAQ from "../components/Faq";
 
 function Home() {
   useEffect(() => {
@@ -16,7 +16,7 @@ function Home() {
       <FeaturedCourses />
       <AllCourses />
       <LimitedPeriod />
-      <Faq />
+      <FAQ />
       <ViewCourses />
     </div>
   );
